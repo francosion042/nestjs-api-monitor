@@ -29,15 +29,15 @@
     "openai",
     "error-handling"
   ],
-  "author": "Anthony <your-email@example.com>",
+  "author": "Anthony Nwobodo <anthony@nwobodo.me>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Anthony/nestjs-api-monitor.git"
+    "url": "git+https://github.com/francosion042/nestjs-api-monitor.git"
   },
   "bugs": {
-    "url": "https://github.com/Anthony/nestjs-api-monitor/issues"
+    "url": "https://github.com/francosion042/nestjs-api-monitor/issues"
   },
-  "homepage": "https://github.com/Anthony/nestjs-api-monitor#readme",
+  "homepage": "https://github.com/francosion042/nestjs-api-monitor#readme",
   "engines": {
     "node": ">=16.0.0"
   },
