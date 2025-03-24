@@ -13,6 +13,7 @@
     "test:cov": "jest --coverage",
     "prepublishOnly": "npm run build",
     "prepare": "npm run build",
+    "publish:npm": "npm publish || npm publish --access public",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
@@ -38,7 +39,7 @@
   },
   "homepage": "https://github.com/Anthony/nestjs-api-monitor#readme",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=16.0.0"
   },
   "license": "MIT",
   "dependencies": {
