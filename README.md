@@ -23,7 +23,7 @@ This NestJS middleware will monitor API requests, format errors, and send alerts
 - Provides a brief error summary + suggested fixes
 
 ### ✅ Customizable Configurations
-- Users can enable/disable AI summarization
+- Enable/disable AI summarization
 - Set alert thresholds (e.g., notify only for 5xx errors)
 - Choose notification channels dynamically
 
@@ -254,6 +254,38 @@ ApiMonitorModule.forRoot({
 ```
 
 The webhook payload includes detailed information about the error, request, response, and AI analysis if enabled.
+
+## GitHub Actions Integration
+
+This package includes GitHub Actions workflows for CI testing and automatic npm publishing.
+
+### Setting up npm publishing with GitHub Actions
+
+1. Generate an npm access token:
+   - Go to [npmjs.com](https://www.npmjs.com/) and log in
+   - Click on your avatar → Access Tokens → Generate New Token
+   - Select the type of token (publish) and copy the generated token
+
+2. Add the token to your GitHub repository:
+   - Go to your GitHub repository → Settings → Secrets → Actions
+   - Click "New repository secret"
+   - Name: `NPM_TOKEN`
+   - Value: paste your npm token
+   - Click "Add secret"
+
+3. Publishing a new version:
+   - Update the version in package.json
+   - Create a new GitHub release:
+     - Go to your repository → Releases → Draft a new release
+     - Choose or create a tag (e.g., v1.0.1)
+     - Add a title and description
+     - Click "Publish release"
+   - GitHub Actions will automatically build, test, and publish your package to npm
+
+4. Manual publishing:
+   - You can also trigger the workflow manually:
+     - Go to your repository → Actions → "Publish to npm" workflow
+     - Click "Run workflow" → "Run workflow"
 
 ## Notification Examples
 
