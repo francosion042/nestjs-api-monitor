@@ -7,14 +7,23 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-test:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 18
+          registry-url: https://registry.npmjs.org/
           cache: 'npm'
+      
+      - name: Print node and npm versions
+        run: |
+          node --version
+          npm --version
       
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -27,24 +36,15 @@ jobs:
       
       - name: Build
         run: npm run build
-
-  publish-npm:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          registry-url: https://registry.npmjs.org/
       
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-      
-      - name: Build
-        run: npm run build
+      - name: List files to be published
+        run: npm pack --dry-run
       
       - name: Publish to npm
-        run: npm run publish:npm
+        run: |
+          echo "Publishing to npm..."
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+          npm run publish:npm
+          echo "Publish completed."
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}} 

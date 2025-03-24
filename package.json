@@ -13,7 +13,7 @@
     "test:cov": "jest --coverage",
     "prepublishOnly": "npm run build",
     "prepare": "npm run build",
-    "publish:npm": "npm publish || npm publish --access public",
+    "publish:npm": "echo 'Publishing package...' && npm publish --access public || echo 'Publish failed, retrying...' && npm publish --access public --force",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
