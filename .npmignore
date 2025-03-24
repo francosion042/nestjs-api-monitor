@@ -1,0 +1,41 @@
+# Source code
+src/
+
+# Tests
+*.spec.ts
+*.test.ts
+
+# TypeScript config
+tsconfig.json
+
+# Git files
+.git/
+.gitignore
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Coverage directory
+coverage/
+
+# Examples
+examples/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Config files
+.eslintrc
+.prettierrc
+jest.config.js
+
+# Node modules
+node_modules/
