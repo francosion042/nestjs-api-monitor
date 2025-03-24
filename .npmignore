@@ -4,6 +4,7 @@ src/
 # Tests
 *.spec.ts
 *.test.ts
+dist/*.spec.*
 
 # TypeScript config
 tsconfig.json
