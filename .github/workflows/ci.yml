@@ -22,7 +22,12 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
-      run: npm ci
+      run: |
+        if [[ $(node --version) =~ ^v16 || $(node --version) =~ ^v18 ]]; then
+          npm install --legacy-peer-deps
+        else
+          npm install
+        fi
     
     - name: Run linting
       run: npm run lint
