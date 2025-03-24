@@ -1,50 +1,35 @@
-name: Publish to npm
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
+name: NPM Publish
 on:
   release:
-    types: [created]
-  # You can also trigger this workflow manually using the GitHub UI
-  workflow_dispatch:
-
+    types: [published]
 jobs:
-  build-and-publish:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 18
-          registry-url: https://registry.npmjs.org/
-          cache: 'npm'
-      
-      - name: Print node and npm versions
-        run: |
-          node --version
-          npm --version
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Update npm
+        run: npm install -g npm
       
       - name: Install dependencies
         run: npm install --legacy-peer-deps
       
-      - name: Run linting
-        run: npm run lint || echo "Linting skipped"
-      
-      - name: Run tests
-        run: npm test || echo "Tests failed but continuing"
-      
-      - name: Build
+      - name: Build package
         run: npm run build
       
       - name: List files to be published
         run: npm pack --dry-run
       
       - name: Publish to npm
-        run: |
-          echo "Publishing to npm..."
-          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-          npm run publish:npm
-          echo "Publish completed."
+        run: npm publish --provenance --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}} 
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
